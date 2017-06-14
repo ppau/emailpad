@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='stylesheet' href='/static/stylesheets/style.css'>
+        <script src="/static/jquery/jquery.min.js"></script>
+        <script>
+          $(document).ready(function () {
+            /*var refresh = function (frame) {
+              $("iframe").each(function (i, frame) {
+                frame.contentWindow.location.reload();
+              });
+              setTimeout(refresh, 5000);
+            }
+            setTimeout(refresh, 5000);*/
+          });
+        </script>
+    </head>
+    <body>
+        <iframe id="frame-render-html" src="/render-html/<%= pad %>"></iframe>
+        <iframe id="frame-render-text" src="/render-text/<%= pad %>"></iframe>
+    </body>
+</html>

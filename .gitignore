@@ -1,0 +1,27 @@
+deploy/
+bin/socket
+
+logs
+*.log
+pids
+*.pid
+*.seed
+
+node_modules
+npm-debug.log
+
+.vagrant
+.DS_Store
+.idea/
+*.css.map
+
+
+.babel-cache
+screenshots
+
+# vscode typescript stuff
+/jsconfig.json
+typings/*
+
+nohup.out
+.sass-cache/

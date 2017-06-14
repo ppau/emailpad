@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EmailPad</title>
+        <link rel='stylesheet' href='/static/stylesheets/style.css'>
+        <script src="/static/jquery/jquery.min.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.js"></script>
+        <script>
+            $(document).ready(function(){
+              $("#btn-load").click(function(e){
+                window.location = "/load/" + $("#pad-text-field-id").val();
+                return false;
+              });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="bar" style="font-size: 14px; padding: 8px;">
+            <div style="float: left; font-size: 24px;">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;
+                <a href="/">
+                    EmailPad
+                </a>
+            </div>
+
+            <form action="/load/" method="get" class="form-inline" style="float:left; text-align: center; margin-left: 150px;">
+                <div class="form-group">
+                    <label for="pad-text-field">Pad</label>
+                    <input <% if (!!locals.pad) {%>value="<%= pad %>"<% } %> type="text" class="form-control" name="pad-text-field" id="pad-text-field-id" placeholder="mailout-" style="min-width: 270px;">
+                    <small style="display: block; color: #555;">Enter the pad name (bold below) and click Load<br>e.g.
+                        https://pad.pirateparty.org.au/p/<strong>mailout-2017-jan</strong></small>
+                </div>
+                <div class="form-group">
+                    <button id="btn-load" class="btn btn-primary">Load</button>
+
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-warning">Export HTML</button>
+                      <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="/render-pre/<%= pad %>?full=true" target="_blank">Full HTML</a></li>
+                        <li><a href="/render-pre/<%= pad %>?dada=true" target="_blank">DaDa mailer content HTML</a></li>
+                      </ul>
+                    </div>
+
+                    <a class="btn btn-primary" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet" style="margin-left: 50px;" target="_blank">MarkDown syntax</a>
+                    <a class="btn btn-warning" href="/load/mailout-example" style="">Example email</a>
+                    <small style="display: block">&nbsp;<br>&nbsp;</small>
+                </div>
+            </form>
+        </div>
+
+        <% if (!!locals.pad) { %>
+            <iframe id="frame-left" src="https://pad.pirateparty.org.au/p/<%= pad %>"></iframe>
+            <iframe id="frame-right" src="/right/<%= pad %>"></iframe>
+        <% } %>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/static/stylesheets/style.css'>
+    <script src="/static/jquery/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+
+        var refresh = function () {
+          $.ajax({
+            url: "",
+            success: function (s, x) {
+              var template = document.createElement('template');
+              template.innerHTML = s;
+              var pre = $(template.content).find("pre").first();
+              console.log(pre);
+              $("pre").html(pre.html());
+            }
+          });
+        }
+
+        const socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port: '') + '/sockets/<%- pad %>');
+
+        // Connection opened
+        socket.addEventListener('open', function (event) {
+            socket.send('subscribe');
+        });
+
+        socket.addEventListener('close', function (event) {
+            console.log('socket closed.');
+        });
+
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server:', event.data);
+            if (event.data === "refresh"){
+              refresh();
+            }
+        });
+
+      });
+    </script>
+
+  </head>
+  <body>
+      <pre>
+<%- markdownTextContent %>
+      </pre>
+  </body>
+</html>

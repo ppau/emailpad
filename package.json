@@ -1,0 +1,34 @@
+{
+  "name": "ppau-html-email-editor",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "server-dev": "node_modules/.bin/nodemon -L --watch . --exec \"node --debug ./bin/www\"",
+    "dev": "node node_modules/concurrently/src/main.js -k \"npm run server-dev\" \"sass --watch ./public/stylesheets/style.scss:./public/stylesheets/style.css\""
+  },
+  "dependencies": {
+    "body-parser": "~1.17.2",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.8",
+    "ejs": "~2.5.6",
+    "escape-html": "^1.0.3",
+    "express": "~4.15.3",
+    "express-ws": "^3.0.0",
+    "jquery": "^3.2.1",
+    "juice": "^4.1.0",
+    "marked": "^0.3.6",
+    "memory-cache": "^0.1.6",
+    "moment": "^2.18.1",
+    "morgan": "~1.8.2",
+    "node-fetch": "^1.7.1",
+    "serve-favicon": "~2.4.3",
+    "winston": "^2.3.1",
+    "xss": "^0.3.3"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "nodemon": "^1.11.0"
+  }
+}

@@ -35,6 +35,7 @@ const html_template_path = path.join(__dirname, '../', 'ppau-responsive-html-ema
 var html_template = fs.readFileSync(html_template_path, 'utf8');
 var contentRegEx = new RegExp('(?:<!-- content_begin_marker -->)((?:.|\n)*)(?:<!-- content_end_marker -->)');
 var logoRegEx = new RegExp('(?:<!-- logo_img_begin_marker -->)((?:.|\n)*)(?:<!-- logo_img_end_marker -->)');
+
 html_template = html_template.replace(contentRegEx, "<!-- content_begin_marker --><%- markdownHtmlContent %><!-- content_end_marker -->");
 html_template = html_template.replace(logoRegEx, "<img alt=\"Pirate Party Australia Logo\" width=\"350\" src=\"https://www.pirateparty.org.au/media/emails/2017/logos/logo350px.png\" />");
 

@@ -14,6 +14,7 @@ const crypto = require('crypto');
 const ejs = require('ejs');
 const escape = require('escape-html');
 const winston = require('winston');
+var removeMd = require('remove-markdown');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -107,6 +108,10 @@ var callToAction = function(text, url){
 </table>";
 };
 
+var callToActionText = function(text, url){
+  return text + ": " + url;
+};
+
 var renderMarkdown = function(text){
   var re = /@\[(.*)]\((.*)\)/g;
   text = xss(text);
@@ -115,6 +120,28 @@ var renderMarkdown = function(text){
     '<table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"><tbody><tr><td align="left"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><a href="$2" target="_blank">$1</a></td></tr></tbody></table></td></tr></tbody></table>'
   );
   text = marked(text);
+  return text;
+};
+
+var renderText = function(text){
+  var reCallToAction = /@\[(.*)]\((.*)\)/g;
+  var reLink = /\[(.*)]\((.*)\)/g;
+  text = xss(text);
+
+  // Call to action buttons
+  text = text.replace(
+    reCallToAction,
+    '$1: $2'
+  );
+
+  // Links
+  text = text.replace(
+    reLink,
+    '$1 ( $2 )'
+  );
+
+  text = removeMd(text, { stripListLeaders: false, gfm: false});
+  text = text.replace(new RegExp(/\\\*/, 'g'), '*');
   return text;
 };
 
@@ -183,6 +210,7 @@ router.get('/render-pre/:pad', function(req, res, next) {
 router.get('/render-text/:pad', function(req, res, next) {
   var text = cache.get(req.params.pad + "-value");
   text = !text ? '' : text;
+  text = renderText(text);
 
   var context = {
     pad: !!req.params.pad ? req.params.pad : null,

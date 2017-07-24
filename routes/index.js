@@ -146,7 +146,7 @@ var renderText = function(text){
 };
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'EmailPad' });
+  res.render('index', { title: 'EmailPad', pad: null });
 });
 
 router.get('/load/:pad', function(req, res, next) {

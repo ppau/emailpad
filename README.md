@@ -12,6 +12,8 @@ The left panel embeds an [Etherpad](http://etherpad.org/) instance which must be
 
 0. Init the submodule repository `git submodule init`.
 
+0. Update submodule repository `git submodule update`.
+
 0. Run the `npm install` command.
 
 0. Run the `npm start`.

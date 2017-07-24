@@ -141,7 +141,7 @@ var renderText = function(text){
   );
 
   text = removeMd(text, { stripListLeaders: false, gfm: false});
-  text = text.replace(new RegExp(/\\\*/, 'g'), '*');
+  text = text.replace('\\\*', '*');
   return text;
 };
 

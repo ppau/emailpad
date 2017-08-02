@@ -19,7 +19,6 @@
           });
         }
 
-        console.log("===mark", location.protocol)
         var socket = new WebSocket((location.protocol === 'https:' ? 'wss' : 'ws') + '://' + location.hostname + (location.port ? ':' + location.port: '') + '/sockets/<%- pad %>');
 
         // Connection opened
